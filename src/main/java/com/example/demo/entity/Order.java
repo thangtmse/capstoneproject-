@@ -10,8 +10,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "`Oder`")
-@NamedQuery(name = "Oder.findAll", query = "SELECT o FROM ProOder o")
+@Table(name = "`Order`")
+@NamedQuery(name = "Order.findAll", query = "SELECT o FROM Order o")
 public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

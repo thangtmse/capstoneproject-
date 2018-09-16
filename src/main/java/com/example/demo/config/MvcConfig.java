@@ -9,32 +9,36 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
 @ComponentScan
 public class MvcConfig implements WebMvcConfigurer, WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> {
 
-//	@Override
-//	public void configureViewResolvers(ViewResolverRegistry registry) {
-//		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-//		resolver.setPrefix("/view/");
-//		resolver.setSuffix(".jsp");
-//		resolver.setViewClass(JstlView.class);
-//		registry.viewResolver(resolver);
-//	}
+	@Override
+	public void configureViewResolvers(ViewResolverRegistry registry) {
+		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+		resolver.setPrefix("/view/");
+		resolver.setSuffix(".jsp");
+		resolver.setViewClass(JstlView.class);
+		registry.viewResolver(resolver);
+	}
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/assets/**").addResourceLocations("/assets/");
-		//registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
-		//registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+		registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+		registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
 	}
 
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-		//registry.addViewController("/404").setViewName("404");
+		registry.addViewController("/").setViewName("index");
+		registry.addViewController("/404").setViewName("404");
 	}
 
 	@Override
